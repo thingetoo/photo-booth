@@ -8,17 +8,14 @@ const redButton = document.getElementById('red')
 function getVideo() { // gets the video to play
     navigator.mediaDevices.getUserMedia({ video: true, audio: false })
         .then(localMediaStream => {
-            console.log(localMediaStream)
             try {
                 video.srcObject = localMediaStream;
-                console.log(1)
               } catch (error) {
                 console.error("You denied the webcam. Access is required to proceed.")
               }
               video.play();
         })
 }
-let num = 0;
 
 
 function paintToCanvas() {
@@ -32,14 +29,11 @@ function paintToCanvas() {
         //take the pixels out
         let pixels = ctx.getImageData(0, 0, width, height); // huge array of numbers representing rgba
         //mess with them
-        redButton.addEventListener('click', () => {
-            pixels = redEffect(pixels)
-        })
         // pixels = redEffect(pixels)
         // pixels = rgbSplit(pixels)
         // ctx.globalAlpha = 0.1;
         
-        // pixels = greenScreen(pixels)
+        pixels = greenScreen(pixels)
         //put them back
         ctx.putImageData(pixels, 0, 0)
     }, 16)
